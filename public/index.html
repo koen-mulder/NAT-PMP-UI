@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAT-PMP Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 NAT-PMP Monitor</h1>
+            <div class="status-indicator" id="wsStatus">
+                <span class="dot"></span>
+                <span>Connecting...</span>
+            </div>
+        </header>
+
+        <div class="card">
+            <h2>Configuration</h2>
+            <form id="configForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gateway">Gateway IP</label>
+                        <input type="text" id="gateway" placeholder="192.168.1.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="protocol">Protocol</label>
+                        <select id="protocol">
+                            <option value="tcp">TCP</option>
+                            <option value="udp">UDP</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="internalPort">Internal Port</label>
+                        <input type="number" id="internalPort" placeholder="8080" min="1" max="65535" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="externalPort">External Port</label>
+                        <input type="number" id="externalPort" placeholder="8080" min="1" max="65535" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lifetime">Mapping Lifetime (seconds)</label>
+                        <input type="number" id="lifetime" placeholder="3600" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="timeout">Run Interval (seconds)</label>
+                        <input type="number" id="timeout" placeholder="30" min="5" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Configuration</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Control</h2>
+            <div class="button-group">
+                <button id="startBtn" class="btn btn-success">Start Monitoring</button>
+                <button id="stopBtn" class="btn btn-danger" disabled>Stop Monitoring</button>
+                <button id="runOnceBtn" class="btn btn-secondary">Run Once</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Status</h2>
+            <div id="statusContainer" class="status-container">
+                <div class="countdown-container">
+                    <svg class="countdown-circle" viewBox="0 0 200 200">
+                        <circle class="countdown-circle-bg" cx="100" cy="100" r="90"></circle>
+                        <circle class="countdown-circle-progress" cx="100" cy="100" r="90" id="progressCircle"></circle>
+                    </svg>
+                    <div class="countdown-text" id="countdownText">--:--</div>
+                </div>
+                
+                <div class="status-info">
+                    <div class="status-badge" id="statusBadge">
+                        <span class="status-dot"></span>
+                        <span id="statusText">Waiting to start...</span>
+                    </div>
+                    
+                    <div class="status-details">
+                        <div class="status-item">
+                            <strong>Last Run:</strong>
+                            <span id="lastRunTime">Never</span>
+                        </div>
+                        <div class="status-item">
+                            <strong>Next Run:</strong>
+                            <span id="nextRunText">--</span>
+                        </div>
+                    </div>
+                    
+                    <div class="message-box" id="messageBox">
+                        <pre id="messageText">No messages yet</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

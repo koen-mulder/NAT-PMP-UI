@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  natpmpc-monitor:
+    build: .
+    container_name: natpmpc-monitor
+    ports:
+      - "3000:3000"
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
